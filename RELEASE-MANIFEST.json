@@ -4,8 +4,8 @@
   "files": [
     {
       "path": ".env.example",
-      "bytes": 967,
-      "sha256": "2063f0d2576ccf3f9087caf85237687cd7c4a6d4f13d9fb5570eeb2e24906079"
+      "bytes": 1415,
+      "sha256": "9df7d30cfed2e889ec89722a3313293562e5cc65577495c8598e0b078fc81056"
     },
     {
       "path": ".gitattributes",
@@ -19,8 +19,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 7995,
-      "sha256": "873054373ebe767c7d5539289da2f4490bc3c157cb305b91e62f75ebdf3276be"
+      "bytes": 14287,
+      "sha256": "bd35356a673c280c6c6c68f64d32eab549d606b99f5439f583b5eb4b07e8d55d"
     },
     {
       "path": "THIRD_PARTY_NOTICES.md",
