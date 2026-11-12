@@ -1,0 +1,726 @@
+{
+  "version": 1,
+  "packageName": "zhicui-research",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 967,
+      "sha256": "2063f0d2576ccf3f9087caf85237687cd7c4a6d4f13d9fb5570eeb2e24906079"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 78,
+      "sha256": "1d4604c45e54ae9ee2cc772bc16810e9a5591418fc2de5facadf1a8654d97459"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 288,
+      "sha256": "5075fbfef1c5bedeeccd2cddda6f734f7508ee685fe098086ef0771a85b5d507"
+    },
+    {
+      "path": "README.md",
+      "bytes": 7995,
+      "sha256": "873054373ebe767c7d5539289da2f4490bc3c157cb305b91e62f75ebdf3276be"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 12794,
+      "sha256": "0fc7794bd0da68215117f25f7fa4d7cb3feb873c684910a08abf5913aacaa5e6"
+    },
+    {
+      "path": "UPSTREAM.md",
+      "bytes": 3118,
+      "sha256": "ff7eedf54f1130a38c7bba4d3c9350c895ccf1b1fd42864dc7258445fca74bcc"
+    },
+    {
+      "path": "methods/00-共同原则与用户方法.md",
+      "bytes": 6918,
+      "sha256": "a95c4d5330fa9a805381f702ffd01800d9d0df4aceb738b3b8b4961c48f78baa"
+    },
+    {
+      "path": "methods/01-主题与整合综述.md",
+      "bytes": 1614,
+      "sha256": "a99db2df33b193d903f4c3bbbeaac28b1458f2c50bd60dcb6b6d5606adb42028"
+    },
+    {
+      "path": "methods/02-系统综述与证据合成.md",
+      "bytes": 2018,
+      "sha256": "2c34d765d6bee878ca3211b4f5fe77dcaf15aee89f7ee65d8a35504ef0d34956"
+    },
+    {
+      "path": "methods/03-物理观测与测量论文.md",
+      "bytes": 1524,
+      "sha256": "8655f251834de208ce5d805b42274b77c337040492e6ac1145c2204473b22d64"
+    },
+    {
+      "path": "methods/04-生命科学实验论文.md",
+      "bytes": 1566,
+      "sha256": "0eb104d4114dc8a096f9aebb3ff748818d0e38d39cd4301483db5998cab2e683"
+    },
+    {
+      "path": "methods/05-临床随机试验论文.md",
+      "bytes": 1736,
+      "sha256": "e17d1c7c7b48267f69357a9e78c5be2eadb4291a7d58ca67c7b59c4b39388db3"
+    },
+    {
+      "path": "methods/06-工程器件与系统论文.md",
+      "bytes": 1455,
+      "sha256": "a913d4c344bc4c675b2aab06f08d5ae1ed4e047e318ec5cd419a06a74ed12749"
+    },
+    {
+      "path": "methods/07-计算机与AI方法论文.md",
+      "bytes": 1818,
+      "sha256": "30ef51f90b11ce2e81e1232c0a39e8b8ed2e043bbec0f460265e30c56caa20dd"
+    },
+    {
+      "path": "methods/08-教育经济与社会定量论文.md",
+      "bytes": 1892,
+      "sha256": "df6d42297e951ca4dbde5b3aff3fce3e4289fbb6d20d95853eea5bb26b6bf20c"
+    },
+    {
+      "path": "methods/09-定性与混合方法论文.md",
+      "bytes": 2104,
+      "sha256": "942c8617e65cf8b5c9afc7cde88e4c302d258fd27c264ded689f9d449e5f762c"
+    },
+    {
+      "path": "methods/10-人文历史与文本论证.md",
+      "bytes": 1619,
+      "sha256": "2d0d303067e9c7b5e61b12be8721a55b8df1a6ddff1d5913a4f292161489008a"
+    },
+    {
+      "path": "methods/11-数学与理论证明论文.md",
+      "bytes": 1530,
+      "sha256": "9b5a9f9d80b75736b070f4b8396a90debed504255eea21bd36d06dd65163359f"
+    },
+    {
+      "path": "methods/12-研究方案与实验方案.md",
+      "bytes": 1827,
+      "sha256": "a7326142f30031fa32e871f279b4c11c926d9a7b534cf74c297f7697ce1c8f5d"
+    },
+    {
+      "path": "methods/13-教学实验报告.md",
+      "bytes": 1790,
+      "sha256": "c9df54261a76a66da7aae8499247e496e41c7ec26b733a0bbe1ceb0dc3798106"
+    },
+    {
+      "path": "methods/14-数据分析报告与局部成果.md",
+      "bytes": 1803,
+      "sha256": "dd3bc8576137ec1c165ae89f9fb68cee3b126e18db760361f64c3648ff05133e"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 206309,
+      "sha256": "a672ebc14f491e12c281d248ba2b27785aac3df72b080d795983b476b39709bf"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1337,
+      "sha256": "cf1e2af58dadb6fb8ef3b9277b735c06985bb6cc1df33a684d42fad72634087f"
+    },
+    {
+      "path": "research-skills.md",
+      "bytes": 4369,
+      "sha256": "e222cf5967d8759c11a5fa38bb11ede9698deb45a6087f2ee045ef733501a654"
+    },
+    {
+      "path": "scripts/dev.mjs",
+      "bytes": 1154,
+      "sha256": "c45b02e348c1f31cf93caccda7878b0d693530e263311815440bb966854e58fc"
+    },
+    {
+      "path": "scripts/prepare-release.mjs",
+      "bytes": 6146,
+      "sha256": "782bdec6054a09a61c781bb3bc0347a9a19b137c878e4f5c0c765fac22b8c463"
+    },
+    {
+      "path": "scripts/startup-config.mjs",
+      "bytes": 993,
+      "sha256": "c07f3f13d5700a1a6077c0bb63340de545810e85543229a52484256cb7f0e910"
+    },
+    {
+      "path": "server/app.ts",
+      "bytes": 13755,
+      "sha256": "6f03766c92d824bfb18028dee299158239ce6b7e706ba4367522e0474dd88fce"
+    },
+    {
+      "path": "server/bibliography.ts",
+      "bytes": 7512,
+      "sha256": "e6b34c2921f058c6a814127e23a906d26d2e6cb4d89eece9365becdad58359c1"
+    },
+    {
+      "path": "server/calculations.ts",
+      "bytes": 5816,
+      "sha256": "478d5010f05fdfb59dfd76c49ef6b7857de3812135fbdf8be4ed53755827c415"
+    },
+    {
+      "path": "server/citation-readiness.ts",
+      "bytes": 2246,
+      "sha256": "c423d842b8c47867ddc4aae8c9d8e56492267555ba4187e080d913f5d60da5fa"
+    },
+    {
+      "path": "server/delivery-requirements.ts",
+      "bytes": 2664,
+      "sha256": "60cef54eb9907268e563f0a4733ea2126d679bd0ff2d0b6a380ec51a98df41b0"
+    },
+    {
+      "path": "server/doi.ts",
+      "bytes": 6191,
+      "sha256": "25e2b73257247ccc9b925e1cffe8e4d023175a0436b6aa3791601b2fe7e727e4"
+    },
+    {
+      "path": "server/draft-edits.ts",
+      "bytes": 1430,
+      "sha256": "59c5240a3b02ac55351c7126e47c2e2ef83806a2cd084126f0a96d84b89d2fe2"
+    },
+    {
+      "path": "server/engine.ts",
+      "bytes": 78888,
+      "sha256": "335bdd04e6d42ab122a87c69d12232fa9697257ddcf4fed0d2a65a33d1fa2304"
+    },
+    {
+      "path": "server/evidence-context.ts",
+      "bytes": 8685,
+      "sha256": "6623ec46480ecbba952647faa8d09f89ffab9847359aa52abbf7d64e9fdf778a"
+    },
+    {
+      "path": "server/export.ts",
+      "bytes": 22435,
+      "sha256": "b66a7e60f8457e28febab423d42970556531f751bddaf1b3c49c8ef67bf5784f"
+    },
+    {
+      "path": "server/formal-export.ts",
+      "bytes": 4110,
+      "sha256": "2f27f74a858763f4228418aa5ba0e547b6b4668088cb0f2834bd0c247554b768"
+    },
+    {
+      "path": "server/format-content-checks.ts",
+      "bytes": 2444,
+      "sha256": "a2cc3218518c287ff0dc2c3cd7f0ce5c7cf62913bd6b51d202f47be66f67057f"
+    },
+    {
+      "path": "server/format-guidelines.ts",
+      "bytes": 8233,
+      "sha256": "2bf3e0c1614dc83dab56c8b83a53814154164db441bb1fe1ecd496c44d4be81d"
+    },
+    {
+      "path": "server/format-resolution.ts",
+      "bytes": 16245,
+      "sha256": "909f06aaf373c14202ea6534cd20160f0aaf95dc34753cac73110eba6e90b204"
+    },
+    {
+      "path": "server/full-text.ts",
+      "bytes": 3438,
+      "sha256": "fad65d00f76f5cdc7af1d4d5b8b4301cf74cb65604dede38016ee918d3814de2"
+    },
+    {
+      "path": "server/index.ts",
+      "bytes": 943,
+      "sha256": "5ce28a25ee78917c0330b456a9c08fc80a430c5897b6cf6447dd3b9c6c682cfc"
+    },
+    {
+      "path": "server/instance-lock.ts",
+      "bytes": 1721,
+      "sha256": "2f48390b7f6eb4eb50f1270fc9004bc6f61eb14e40301f458d8166423e89e1e1"
+    },
+    {
+      "path": "server/library-bibtex.ts",
+      "bytes": 3014,
+      "sha256": "ad4491a3c73c43cfcc0d263c64c3fe75681028809886d99faa55f84b3a81df14"
+    },
+    {
+      "path": "server/library-routes.ts",
+      "bytes": 2493,
+      "sha256": "a04d9a421098d757e67adeb508a8d08951ae56d2ec25eb1db06f83d786aaca4f"
+    },
+    {
+      "path": "server/library.ts",
+      "bytes": 13490,
+      "sha256": "62e167437fc175f1f26306f0908f75ad2dc5e68c8b7e0c587cb9a465b63dd4c7"
+    },
+    {
+      "path": "server/literature/arxiv.ts",
+      "bytes": 8259,
+      "sha256": "b3901ce5a0c5eafe6194e0a0a0d73f588f7d4bfa09e7df940bb11b2dce986dd1"
+    },
+    {
+      "path": "server/literature/doaj.ts",
+      "bytes": 5539,
+      "sha256": "7e360522d7680902cd371d289e9afcf28261358596f96ddd63ca67f617d101bf"
+    },
+    {
+      "path": "server/literature/eric.ts",
+      "bytes": 8320,
+      "sha256": "1459d8f17e9882b17be1a5e80b8bb334981a499e7d802620735b61c934fbde81"
+    },
+    {
+      "path": "server/literature/metadata-utils.ts",
+      "bytes": 2625,
+      "sha256": "5a17796a23ab5bb4835a70052079190372fe3da0e535b2f329a552f839606dc3"
+    },
+    {
+      "path": "server/literature/network.ts",
+      "bytes": 6581,
+      "sha256": "1e18ea0c1514eba2fd6849c5ceaf79c9f8b62dcefdb1f17696a09b68363f2209"
+    },
+    {
+      "path": "server/literature/openaire.ts",
+      "bytes": 7778,
+      "sha256": "a44b5d1f5a1e2ae6c99f2940e46d44c87e6a60292a3597db9398304602b4fb9e"
+    },
+    {
+      "path": "server/literature/pubmed.ts",
+      "bytes": 14266,
+      "sha256": "2990170062aab155bc8c5fa1bb91790358168cbff662f420df73496ff4b93947"
+    },
+    {
+      "path": "server/literature/query.ts",
+      "bytes": 3799,
+      "sha256": "c9fa31c15e54ed6f38a252a7494f7089d8c069aa8ee009dcef688d4c527b97c5"
+    },
+    {
+      "path": "server/manuscript-boundary.ts",
+      "bytes": 4110,
+      "sha256": "012cebc99ef638dde06cb98c0d8c7ef3abbf7a30268502d779ce0874181d16d6"
+    },
+    {
+      "path": "server/manuscript-context.ts",
+      "bytes": 7241,
+      "sha256": "a221885d2ba3d8cba9f2ac6392a3cdbd672fb748d962f98ebe47753f6140d740"
+    },
+    {
+      "path": "server/materials.ts",
+      "bytes": 7371,
+      "sha256": "0b7a8f0404db85a169587de931b4f6e21f78e538e5ee45f540fd1b6491ea3d2e"
+    },
+    {
+      "path": "server/method-selection.ts",
+      "bytes": 3400,
+      "sha256": "7d4f5ccf43e58def3abf635ea91fcd4dfcafdb83c3df9c8bc7b0f2118b1afd61"
+    },
+    {
+      "path": "server/methods.ts",
+      "bytes": 3645,
+      "sha256": "99f34e1a30ece55d70d44e9a7d1a6ec99544f5c9fea8484dd6089056fcb3a644"
+    },
+    {
+      "path": "server/model-connections.ts",
+      "bytes": 15095,
+      "sha256": "ad2e0139fc57c6f70d8f8c81303085e4b80782c155e92deaf51309093691fbef"
+    },
+    {
+      "path": "server/native/recycle.ps1",
+      "bytes": 16553,
+      "sha256": "2b94cb0a0d57135e145fdfc2de02a8aa110bed637caaaff6ee3880e7fdb7e988"
+    },
+    {
+      "path": "server/network.ts",
+      "bytes": 9420,
+      "sha256": "ce21e73b76ffe2e6b1aa9e70e97cb874610be39aeba847acdc9044dfccdc4aab"
+    },
+    {
+      "path": "server/outline-confirmation.ts",
+      "bytes": 1174,
+      "sha256": "3c646fc73275c3326c4e0989f0be0b3182f43cd5aca2461ea12df2a74e874be1"
+    },
+    {
+      "path": "server/paper-library-routes.ts",
+      "bytes": 812,
+      "sha256": "f11245ab4bc85358790c709aeac35167d261d6a0f917d24554e75b4c12e0bbc2"
+    },
+    {
+      "path": "server/paper-library.ts",
+      "bytes": 11136,
+      "sha256": "8088034c0e82a7b31dcef085af0f771b580a904bf696650d4f64506a81ce924f"
+    },
+    {
+      "path": "server/prompts.ts",
+      "bytes": 18695,
+      "sha256": "8eec133402ab8d3b936927a40d29e244b1a1119f377461cf53c8d136d737518d"
+    },
+    {
+      "path": "server/providers.ts",
+      "bytes": 17750,
+      "sha256": "856872c5872e40cde1aa3c04e9a300abe31974c0c2d1d05a1abdfaf2454b55f2"
+    },
+    {
+      "path": "server/public-article.ts",
+      "bytes": 27368,
+      "sha256": "f4e12117a3e559b20d36ee19383f83ae590fce32ee5b1ff9b9214d3983e0e968"
+    },
+    {
+      "path": "server/reading.ts",
+      "bytes": 32109,
+      "sha256": "40179498ddb60e8a21c6f6a50a3dc51dee101f8378ee870de2177877c2773160"
+    },
+    {
+      "path": "server/research-continuity.ts",
+      "bytes": 7538,
+      "sha256": "c0d599b7185283d690d0b16ff36b9ce0f18f39394ba2b99e09e452799391c041"
+    },
+    {
+      "path": "server/research-harness.ts",
+      "bytes": 39401,
+      "sha256": "19dc19240b583ce44e704a11745411a5432f2c156714deaf2f62415e89568076"
+    },
+    {
+      "path": "server/research-skills.ts",
+      "bytes": 5430,
+      "sha256": "76129540ae5c895e96398f453de70e0a88ca56ae8af6e4a16842f842cbef9536"
+    },
+    {
+      "path": "server/research-tool-context.ts",
+      "bytes": 738,
+      "sha256": "965e5294e3fa697e2e69e950ff22c88eef38370fd9e97fa7d21c096e3ce1e540"
+    },
+    {
+      "path": "server/research-tool-discovery.ts",
+      "bytes": 32854,
+      "sha256": "f075fab83a1798dcb9c28a4735fd3b876ec56e9b989b785e9164e843fdbdf2e7"
+    },
+    {
+      "path": "server/research-tool-format.ts",
+      "bytes": 13872,
+      "sha256": "23c726fa8f919b623ccbd286cd07a0529ca0a775a963644a8c1810cc1ae1a043"
+    },
+    {
+      "path": "server/research-tool-writing.ts",
+      "bytes": 43345,
+      "sha256": "c2a170d4d5b0911429adb7769dd1e2f4c2c320e503a4f09e32073eea4cdc4441"
+    },
+    {
+      "path": "server/retrieval.ts",
+      "bytes": 48935,
+      "sha256": "ddffdce9f89458528f7365881c7da3673bea8a4e8922db8f38a9ebd4f154c7a3"
+    },
+    {
+      "path": "server/reuse-source-evidence.ts",
+      "bytes": 4674,
+      "sha256": "81c1a9c4e5ed7e845f0aec456ad755e84fec3e1cf8488f99da6a2740b5c322aa"
+    },
+    {
+      "path": "server/revision-context.ts",
+      "bytes": 4704,
+      "sha256": "6186b4ccc717d6a1bf1d23fd71bf0ceee730886707a132729222ac980af00f88"
+    },
+    {
+      "path": "server/run-files.ts",
+      "bytes": 1481,
+      "sha256": "ce0948aae03435ae17d5aa918637d2cf3a67780c5b0ed415fb32859b1c049cb0"
+    },
+    {
+      "path": "server/schemas.ts",
+      "bytes": 9193,
+      "sha256": "ea3eb5b567a1e8ec91367d1dc221f4aaa0af73dc65c3b3efc8f686ee618d3b5d"
+    },
+    {
+      "path": "server/screening.ts",
+      "bytes": 15604,
+      "sha256": "4fd16c316f77cc5add73e0ccecd982dbd6df502abb9c4f5809055a228e3820a4"
+    },
+    {
+      "path": "server/source-access.ts",
+      "bytes": 3536,
+      "sha256": "016ce738e669447389c4b466776a8004b85a1250bf7b2c1b07681e6c43367d0f"
+    },
+    {
+      "path": "server/source-document-links.ts",
+      "bytes": 2120,
+      "sha256": "f2d5ac9bf53d18519c2995f6c7051da47a06cbd74c257eede33e64d3da267ab4"
+    },
+    {
+      "path": "server/sources.ts",
+      "bytes": 15061,
+      "sha256": "cd916aa6b65d73c33fbc949c19a4baccded3cc9ad6f1edcbf689471d34690abd"
+    },
+    {
+      "path": "server/store.ts",
+      "bytes": 48079,
+      "sha256": "eccfe63a992963d2c64417a2feebe97fd5ec08d0826c92e7ae70dcffaa9cd7d5"
+    },
+    {
+      "path": "server/task-context.ts",
+      "bytes": 3004,
+      "sha256": "267056905d84fda7b3789db971c6b7313624219a49aa7fae018ec18c11259da6"
+    },
+    {
+      "path": "server/task-policy.ts",
+      "bytes": 7974,
+      "sha256": "b1a47469d34d5d61957622ac44b0b3144ccf6eda10eb7c84abf1d301d76221a0"
+    },
+    {
+      "path": "server/upstream/LICENSE",
+      "bytes": 1064,
+      "sha256": "d5a79316dec7f93a89701af72b118ff77030a8db38acd3e1aa05f4a4e7757241"
+    },
+    {
+      "path": "server/upstream/README.md",
+      "bytes": 1991,
+      "sha256": "77a998c7f98918209c1a43ba51bb919b7892abd5131dd54a048d278b4f36be27"
+    },
+    {
+      "path": "server/upstream/atomic-json.ts",
+      "bytes": 2196,
+      "sha256": "074bd14f42456e76ed973d9d9d61925efd380f0b81766c07cf0329f78436ea01"
+    },
+    {
+      "path": "server/upstream/canonical-json.ts",
+      "bytes": 562,
+      "sha256": "968685c080d8af0cb5e0abd27573f89c0598314ce0d6f516705bb27017470168"
+    },
+    {
+      "path": "server/upstream/http-proxy.ts",
+      "bytes": 6267,
+      "sha256": "87ed94b297308b421a9f6a458309c4657e436cce6dfd8843a51e5395dbdcf83d"
+    },
+    {
+      "path": "server/upstream/research-session-runtime.ts",
+      "bytes": 15505,
+      "sha256": "157b661248dac4e53548ba5a3b6fea06b8c84e639e34b0b81573a004f1938662"
+    },
+    {
+      "path": "server/upstream/research-skills/arxiv/SKILL.md",
+      "bytes": 868,
+      "sha256": "36d4fb79d3f82775054939ae94f3d5e579818ae98f237d8d0ad39e2eace16746"
+    },
+    {
+      "path": "server/upstream/research-skills/citation-management/SKILL.md",
+      "bytes": 2201,
+      "sha256": "1811357cff2dcfa0fa98f9426b584ca07dcb7d95e875df1adfcc8b388aade070"
+    },
+    {
+      "path": "server/upstream/research-skills/literature-review/SKILL.md",
+      "bytes": 2845,
+      "sha256": "e77323102754807f160cb9c208f25956bc35583460c220a19707d00964b05469"
+    },
+    {
+      "path": "server/windows-recycle.ts",
+      "bytes": 7552,
+      "sha256": "a0c4a6ba7431f80fcf08ac7027a0c2d98dda8ac17d95a686c87fa02769df6021"
+    },
+    {
+      "path": "server/workspace-routes.ts",
+      "bytes": 5011,
+      "sha256": "66153fe1909b688c364b42e5b0406327f5ac3aaf09c7a8a1878ccc7ece4e0c80"
+    },
+    {
+      "path": "server/workspace-service.ts",
+      "bytes": 25697,
+      "sha256": "7bf4616499443f199eef78d193368f46446f94d69367644b448fd63046917e57"
+    },
+    {
+      "path": "server/writing-language.ts",
+      "bytes": 1142,
+      "sha256": "ad50a8cbb35cd07c7528e523a3e585dfe03475118bb517edbbbba89475f24e96"
+    },
+    {
+      "path": "server/writing-review-context.ts",
+      "bytes": 4203,
+      "sha256": "780caf059d539c271ab95bed92efd8deda774bc68c12e7f398493762712c4302"
+    },
+    {
+      "path": "server/writing-target.ts",
+      "bytes": 6580,
+      "sha256": "37bcd17f9788bb363ab7303bf21ac91c9aa356c493245c0e9fccdd398d93ada0"
+    },
+    {
+      "path": "shared/export-format.ts",
+      "bytes": 12724,
+      "sha256": "b77f2357902cec777df8ccf1f795a2141be76a889a0798af92dcf80005d46d16"
+    },
+    {
+      "path": "shared/library.ts",
+      "bytes": 870,
+      "sha256": "2c10e0ba32fc4c0ce73800e14efd887188cefa97a4479cfb378032f93c761633"
+    },
+    {
+      "path": "shared/paper-library.ts",
+      "bytes": 776,
+      "sha256": "432ef30ece4095c29cd16abbd0e4cbb46d7f551486e58b500a9a86ff5786d4ae"
+    },
+    {
+      "path": "shared/types.ts",
+      "bytes": 11041,
+      "sha256": "2abe6cf0d38fa20a859df52d65e0c65e3bc491230de290e34b7b496d7c995fb7"
+    },
+    {
+      "path": "shared/workspace.ts",
+      "bytes": 1460,
+      "sha256": "3c5947a0dab51c62ae61288b0906e3bdc995f9a9d3a4386130709875ae940825"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 370,
+      "sha256": "6fa12003411c48f263f29db3b3aa4ea141483c750c3ceeadc45758f76e92776d"
+    },
+    {
+      "path": "web/app/icon.svg",
+      "bytes": 363,
+      "sha256": "8f72c1da04405308bf79ccc8c5dec6439eb20214ab45798b367c98459fffeec4"
+    },
+    {
+      "path": "web/app/layout.tsx",
+      "bytes": 426,
+      "sha256": "da94a4829489b752b35aef458d414176444b4152e184d8b85213624efcf9986c"
+    },
+    {
+      "path": "web/app/page.tsx",
+      "bytes": 57510,
+      "sha256": "128667aaa5664cd8438fbbce4de9f3001104b3876a35c1a980af1979c8eccceb"
+    },
+    {
+      "path": "web/app/source/page.tsx",
+      "bytes": 9526,
+      "sha256": "793ed14632ba0abd06d0b89386d6c8df7e149d61abdcbe36fc05e8378c4c996d"
+    },
+    {
+      "path": "web/app/source/source.module.css",
+      "bytes": 3309,
+      "sha256": "c4a6de11f685d1f892783795bc4238f0a23eeea824af70bcd069be470bb9b224"
+    },
+    {
+      "path": "web/app/styles.css",
+      "bytes": 56935,
+      "sha256": "2e7180e3632c526bc94043d09ffaeefd1c0ecec2d8c53e8c8e6ee45cae62da2c"
+    },
+    {
+      "path": "web/components/ArgumentCard.tsx",
+      "bytes": 3592,
+      "sha256": "869561ce8c95700ccaf4147d99e39a0f9516d77ee08703e9f5f6c6d17873627b"
+    },
+    {
+      "path": "web/components/CopyMessageButton.tsx",
+      "bytes": 1560,
+      "sha256": "1688f142e91a182f233c509d834132c7a7c57b0e35fc4ecec77a964b711b31df"
+    },
+    {
+      "path": "web/components/LibraryPanel.module.css",
+      "bytes": 5813,
+      "sha256": "f949fb133d34b36d9623a7886855e8c92ccbb1b5e62f97b44b6fdb36348d5e02"
+    },
+    {
+      "path": "web/components/LibraryPanel.tsx",
+      "bytes": 14938,
+      "sha256": "7e981ad10ea41cb4213b4592eee0bc8e43e469a877c0f934a080b7333987d68b"
+    },
+    {
+      "path": "web/components/Markdown.tsx",
+      "bytes": 3440,
+      "sha256": "d6ab94199198b633fcb7c31e7eec51d1e0b623cdc447b1f4ae8dbc0492564e50"
+    },
+    {
+      "path": "web/components/ModelConnectionManager.tsx",
+      "bytes": 12405,
+      "sha256": "6548b0bd4fd9145c2a18ad7b51786910d4662f42b15a35ca0fc32a441bb9269d"
+    },
+    {
+      "path": "web/components/ModelPicker.tsx",
+      "bytes": 4442,
+      "sha256": "15b5fcb26df56af6536424e984bbf5f0ec602f02ecf1e92f2356beacaaeb94cd"
+    },
+    {
+      "path": "web/components/PaperLibrary.module.css",
+      "bytes": 7042,
+      "sha256": "d8e171c283c18798b8c2435d748bc98feaa7a1251d5949c26a4888213034aa1f"
+    },
+    {
+      "path": "web/components/PaperLibrary.tsx",
+      "bytes": 13691,
+      "sha256": "f92cd35ad44eeca6aa31446b7d719ff175019e2cb16d9cfcecde43ee01548696"
+    },
+    {
+      "path": "web/components/ResearchOptionsConfirmation.tsx",
+      "bytes": 1309,
+      "sha256": "da9eef715cd996f55b6c181ac65154daeaa207ba21f9e9390e39af7906d3342e"
+    },
+    {
+      "path": "web/components/ResearchProgress.module.css",
+      "bytes": 675,
+      "sha256": "65366e2efd97a4f5301f650a78de8e74eaf4a30a3a5cae1edf4be4a45d6ffb05"
+    },
+    {
+      "path": "web/components/ResearchProgress.tsx",
+      "bytes": 19778,
+      "sha256": "820df283c63f2109fd92f3423d9fd2c558b45ef864865e4b4ed44078542097e7"
+    },
+    {
+      "path": "web/components/SavedWorkspacePanel.tsx",
+      "bytes": 2273,
+      "sha256": "a0bdf09cd02ab9ba50f768fa425bea389e5526fde39b9f35233fe3fa951a9f6f"
+    },
+    {
+      "path": "web/components/Settings.tsx",
+      "bytes": 7714,
+      "sha256": "c5edaeef4a5b876d2281e48e040b6eae82477038859f4d7c68e375d725e2b110"
+    },
+    {
+      "path": "web/components/TaskRequirements.module.css",
+      "bytes": 1577,
+      "sha256": "411dcf59b8bad20dcac7b389c8a67c34f8abd8d58eb867da29dba888dc97853a"
+    },
+    {
+      "path": "web/components/TaskRequirements.tsx",
+      "bytes": 5451,
+      "sha256": "c5f664cdd88fb95795a7576d28f1ea0830d06348033e7f6e822abbbf4528ce75"
+    },
+    {
+      "path": "web/components/WorkspaceTree.tsx",
+      "bytes": 17989,
+      "sha256": "8d87186c350cb86046b8dbd83b091c40cf99eb32b2bc74859bfb412105e4bd24"
+    },
+    {
+      "path": "web/lib/accepted-run.ts",
+      "bytes": 875,
+      "sha256": "03008beb49f360ba32fc02abd63f8d4f6e4cd9d01b6c6583b57522cce0c561fd"
+    },
+    {
+      "path": "web/lib/api.ts",
+      "bytes": 734,
+      "sha256": "e09259e93c06a82c3c0d53dbd40e708085eea56c482c28f15aacb574d7f31108"
+    },
+    {
+      "path": "web/lib/current-run.ts",
+      "bytes": 1132,
+      "sha256": "527fc872c0d5d201eb3e377fa94b2df8d961942ff15925eb57dcea7baab12ab4"
+    },
+    {
+      "path": "web/lib/message-copy.ts",
+      "bytes": 1356,
+      "sha256": "a94cfeaa8bcc507e74e2f59cbbe8996fee4453ae2ff5d25373361b94ca7e5fe9"
+    },
+    {
+      "path": "web/lib/model-connections.ts",
+      "bytes": 3546,
+      "sha256": "7df158defa44c6fca9fbf2c87d1dcc00f0c506da3a25bd96690818f58a8bc324"
+    },
+    {
+      "path": "web/lib/paper-navigation.ts",
+      "bytes": 1543,
+      "sha256": "d2ab5e9a2c8e3fbf3e771d5763f5bc0a3e7c2a7b45b3d385353900efb536890e"
+    },
+    {
+      "path": "web/lib/research-options-confirmation.ts",
+      "bytes": 2978,
+      "sha256": "dfc814d931647dbf10ccf62438a6707750267896ca475b8d157b4d63189e57fc"
+    },
+    {
+      "path": "web/lib/run-progress.ts",
+      "bytes": 13845,
+      "sha256": "56ab6e9a89c6672acb44ed51ad902c7a51cc74259ad25c2774cc362010824790"
+    },
+    {
+      "path": "web/lib/source-links.ts",
+      "bytes": 1950,
+      "sha256": "011f5ebfe81e57090ca3a293530687484acfc7dffa284f442104879df3d0c5d6"
+    },
+    {
+      "path": "web/next.config.ts",
+      "bytes": 838,
+      "sha256": "02eb02117eeb08b041007b36572a993448fed92fb50b90f017a4f36e112e0a6d"
+    },
+    {
+      "path": "web/tsconfig.json",
+      "bytes": 731,
+      "sha256": "89b9a1dfcfd3f23c8c37aed9113bd260f759d02a496bb7cb187921099b67afde"
+    }
+  ]
+}

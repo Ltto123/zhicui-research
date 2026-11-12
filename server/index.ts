@@ -1,0 +1,14 @@
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { initializeNetwork } from './network';
+import { buildApp } from './app';
+import { acquireInstanceLock } from './instance-lock';
+const network = await initializeNetwork();
+console.log(`文献网络：${network.mode === 'proxy' ? network.proxy : '限时直连'}。${network.message}`);
+const dataRoot=process.env.ZHICUI_DATA_DIR||fileURLToPath(new URL('../.data/',import.meta.url));
+const releaseLock=acquireInstanceLock(path.resolve(dataRoot));
+const app=await buildApp(path.resolve(dataRoot)).catch(error=>{releaseLock();throw error;});
+app.addHook('onClose',async()=>releaseLock());
+await app.listen({port:4310,host:'127.0.0.1'}).catch(error=>{releaseLock();throw error;});
+console.log('智萃科研服务已启动：http://127.0.0.1:4310');
+for(const signal of ['SIGINT','SIGTERM'] as const)process.on(signal,()=>{void app.close().then(()=>process.exit(0));});

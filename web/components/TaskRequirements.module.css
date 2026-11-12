@@ -1,0 +1,19 @@
+.panel { min-width: 0; margin: 10px 0; color: #344862; font-size: 12px; overflow-wrap: anywhere; }
+.panel > summary { display: inline-flex; align-items: center; gap: 5px; padding: 3px 0; cursor: pointer; color: #647e9e; font-size: 11px; list-style: none; }
+.panel > summary::-webkit-details-marker { display: none; }
+.panel > summary > svg { flex-shrink: 0; }
+.panel[open] > summary > svg:last-child { transform: rotate(180deg); }
+.content { padding: 1px 0 4px 10px; margin-top: 8px; border-left: 1px solid #e2eaf4; min-width: 0; }
+.content section + section { margin-top: 14px; }
+.content h3 { font-size: 11px; font-weight: 600; margin: 0 0 6px; color: #536d8d; }
+.content p { margin: 5px 0; line-height: 1.7; }
+.muted { color: #8190a3; font-size: 10px; }
+.source { margin-top: 7px; font-size: 11px; min-width: 0; }
+.source > summary { cursor: pointer; color: #6d83a0; line-height: 1.8; overflow-wrap: anywhere; }
+.source a { color: #5c7fa7; overflow-wrap: anywhere; font-size: 10px; }
+.text { font: inherit; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; overflow-x: hidden; overflow-y: auto; max-height: 260px; padding: 9px; margin: 8px 0; border-radius: 4px; border: 1px solid #e6edf6; background: white; }
+.settings { margin: 7px 0; font-size: 10px; }
+.settings > div { display: grid; grid-template-columns: 45px minmax(0, 1fr); gap: 7px; padding: 4px 0; line-height: 1.7; }
+.settings dt { color: #8390a2; }
+.settings dd { margin: 0; min-width: 0; }
+.panel summary:focus-visible { outline: 2px solid #6599dc; outline-offset: 3px; border-radius: 2px; }

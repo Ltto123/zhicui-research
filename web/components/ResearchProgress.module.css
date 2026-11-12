@@ -1,0 +1,8 @@
+.records { margin: 9px 0; min-width: 0; color: #687d98; font-size: 12px; line-height: 1.8; overflow-wrap: anywhere; }
+.records > summary { display: flex; align-items: center; gap: 5px; width: fit-content; max-width: 100%; cursor: pointer; color: #617c9e; font-size: 11px; list-style: none; }
+.records > summary::-webkit-details-marker { display: none; }
+.records > summary svg { flex-shrink: 0; }
+.records[open] > summary { margin-bottom: 9px; }
+.records[open] > summary svg { transform: rotate(180deg); }
+.records summary:focus-visible { outline: 2px solid #6599dc; outline-offset: 3px; }
+.progress.progress { margin: 0; color: #506b8b; font-size: 12px; line-height: 1.8; }
