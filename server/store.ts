@@ -4,6 +4,7 @@ import { randomUUID } from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { z } from 'zod';
 import { atomicJson } from './upstream/atomic-json';
+import {resolveArtifactTitle} from './artifact-title';
 import { buildTaskContext, effectiveTaskPrompt } from './task-context';
 import { applyReferenceRequirement, classifyResearchContinuation, isPureContinuationInstruction } from './research-continuity';
 import type { Project, Conversation, Material, Run, RunOptions, ModelConfig, Message, Artifact, RunEvent, RevisionInput } from '../shared/types';
@@ -43,6 +44,10 @@ export class Store {
     // A corrupt store is never silently replaced with an empty project.
     this.state = fs.existsSync(file) ? JSON.parse(fs.readFileSync(file,'utf8')) : {version:1,projects:[],conversations:[],materials:[],options:{}};
     if (this.state.version !== 1 || !Array.isArray(this.state.conversations)) throw new Error('不支持或损坏的资料库，请保留原文件检查');
+    // Older deliveries inherited a planning title even after the manuscript
+    // changed genre. Repair metadata only, including independent saved copies.
+    for(const c of this.state.conversations)for(const artifact of c.artifacts)artifact.title=resolveArtifactTitle(artifact.markdown,artifact.title);
+    for(const {artifact} of this.state.savedArtifacts??[])artifact.title=resolveArtifactTitle(artifact.markdown,artifact.title);
     for (const c of this.state.conversations) for (const r of c.runs) {
       if (r.status === 'running' || r.status === 'queued') {
         r.status='interrupted'; r.stage='服务重启，等待接续'; r.updatedAt=now();
@@ -221,7 +226,7 @@ export class Store {
   inheritRunOptions(id:string) {const run=this.getRun(id);this.assertConversationWritable(run.conversationId);run.requirementOptions??=structuredClone(this.runRequirementOptions(id));(this.state.optionOverrides??={})[id]={};this.save();}
   updateRun(id:string,patch:Partial<Run>,resume=false) { const r=this.getRun(id); if(resume||patch.status==='queued'||patch.status==='running'&&r.status!=='running')this.assertConversationWritable(r.conversationId); if(r.status==='cancelled' && patch.status && patch.status!=='cancelled' && !resume) throw new Error('已终止的任务不能重新完成'); Object.assign(r,patch,{id:r.id,conversationId:r.conversationId,updatedAt:now()}); this.getConversation(r.conversationId).updatedAt=now();this.save();return r; }
   event(id:string,type:RunEvent['type'],message:string) {const r=this.getRun(id); const event={seq:r.events.length+1,type,message:message.slice(0,5000),createdAt:now()};r.events.push(event);r.updatedAt=now();this.save();return event;}
-  addArtifact(conversationId:string,artifact:Artifact) {const c=this.getConversation(conversationId); const old=c.artifacts.find(a=>a.runId===artifact.runId);if(old)return old; c.artifacts.push(artifact);this.save();return artifact;}
+  addArtifact(conversationId:string,artifact:Artifact) {const c=this.getConversation(conversationId); const old=c.artifacts.find(a=>a.runId===artifact.runId);if(old)return old; artifact.title=resolveArtifactTitle(artifact.markdown,artifact.title);c.artifacts.push(artifact);this.save();return artifact;}
   getArtifact(id:string) {for(const c of this.state.conversations){const a=c.artifacts.find(a=>a.id===id);if(a)return a;}const saved=this.state.savedArtifacts?.find(entry=>entry.artifact.id===id);if(saved)return saved.artifact;throw new Error('成果不存在');}
   workspaceIndex():WorkspaceIndex {
     const projects=this.listProjects(),ids=new Set(projects.map(p=>p.id));

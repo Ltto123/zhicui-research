@@ -9,6 +9,7 @@ import { AlignmentType, BorderStyle, BuilderElement, Document, ExternalHyperlink
 import { chromium, type Browser } from 'playwright';
 import type { Artifact } from '../shared/types.ts';
 import {formalExportMarkdown} from './formal-export';
+import {resolveArtifactTitle} from './artifact-title';
 import {manuscriptBoundaryIssues} from './manuscript-boundary';
 import {defaultExportFormatSettings,validatedExportFormatSettings,type ExportFormatSettings} from '../shared/export-format';
 
@@ -94,7 +95,7 @@ function formalManuscript(artifact:Artifact):Artifact {
   const markdown= formalExportMarkdown(artifact.markdown);
   const [issue]=manuscriptBoundaryIssues(markdown);
   if(issue)throw new Error(`${issue.location}：${issue.issue}。${issue.suggestion}`);
-  return {...artifact,markdown};
+  return {...artifact,title:resolveArtifactTitle(artifact.markdown,artifact.title),markdown};
 }
 
 export function renderArtifactHtml(artifact:Artifact):string {return renderHtml(formalManuscript(artifact),{count:0,failed:0});}

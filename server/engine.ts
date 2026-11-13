@@ -4,6 +4,7 @@ import { randomUUID, createHash } from 'node:crypto';
 import {setTimeout as delay} from 'node:timers/promises';
 import type { ZodType } from 'zod';
 import { Store } from './store';
+import {resolveArtifactTitle} from './artifact-title';
 import {assertOutlineConfirmation,type ConfirmationExpectation} from './outline-confirmation';
 import { createProvider, safeModelUsage } from './providers';
 import { searchEvidence, fetchFullTextEvidence, newIndependentEvidence, RETRIEVAL_VERSION } from './retrieval';
@@ -712,7 +713,7 @@ export class ResearchEngine {
         progress(`最终引用的 ${access.checkedIds.length} 篇外部论文已逐条确认原文可打开；原文已保存，模型阅读范围保持原记录。`);
       }
       stage('生成可编辑稿与阅读版');
-      const artifact:Artifact={id:randomUUID(),runId:id,title:plan.title,markdown:plan.taskType==='format'?run.draft!:withReferences(run.draft!,workingEvidence,{runId:id}),createdAt:new Date().toISOString(),status:limitations.length?'limited':'completed',formats:[],limitations,format:delivery.format};
+      const artifact:Artifact={id:randomUUID(),runId:id,title:resolveArtifactTitle(run.draft!,plan.title),markdown:plan.taskType==='format'?run.draft!:withReferences(run.draft!,workingEvidence,{runId:id}),createdAt:new Date().toISOString(),status:limitations.length?'limited':'completed',formats:[],limitations,format:delivery.format};
       registerArtifactOutput(this.store.root,id,artifact.id);
       const exported=await(this.dependencies.export??exportArtifact)(artifact,path.join(this.store.root,'artifacts'));guard();
       artifact.formats=exported.formats;artifact.limitations=[...new Set([...artifact.limitations,...exported.warnings])];if(exported.warnings.length)artifact.status='limited';

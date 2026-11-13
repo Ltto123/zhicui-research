@@ -143,6 +143,11 @@
       "sha256": "6f03766c92d824bfb18028dee299158239ce6b7e706ba4367522e0474dd88fce"
     },
     {
+      "path": "server/artifact-title.ts",
+      "bytes": 1795,
+      "sha256": "c10d9af05b90dd88d61286d5486ff804bf8420fe68610c8a1e1b84683a4e9171"
+    },
+    {
       "path": "server/bibliography.ts",
       "bytes": 7512,
       "sha256": "e6b34c2921f058c6a814127e23a906d26d2e6cb4d89eece9365becdad58359c1"
@@ -174,8 +179,8 @@
     },
     {
       "path": "server/engine.ts",
-      "bytes": 78888,
-      "sha256": "335bdd04e6d42ab122a87c69d12232fa9697257ddcf4fed0d2a65a33d1fa2304"
+      "bytes": 78977,
+      "sha256": "cda673426219bd989516c7d01d1ee5f6ad45d913766ad17a1868d4f94bacfe72"
     },
     {
       "path": "server/evidence-context.ts",
@@ -184,8 +189,8 @@
     },
     {
       "path": "server/export.ts",
-      "bytes": 22435,
-      "sha256": "b66a7e60f8457e28febab423d42970556531f751bddaf1b3c49c8ef67bf5784f"
+      "bytes": 22551,
+      "sha256": "b7a0ad598fca1427813eac24b503a38bb80f13e14006cafdd7b61f9537002325"
     },
     {
       "path": "server/formal-export.ts",
@@ -384,8 +389,8 @@
     },
     {
       "path": "server/research-tool-writing.ts",
-      "bytes": 43345,
-      "sha256": "c2a170d4d5b0911429adb7769dd1e2f4c2c320e503a4f09e32073eea4cdc4441"
+      "bytes": 43433,
+      "sha256": "574079a0419e44ae55310e07c25f6965e67c051fbc038e9190dd5b58d2e236af"
     },
     {
       "path": "server/retrieval.ts",
@@ -434,8 +439,8 @@
     },
     {
       "path": "server/store.ts",
-      "bytes": 48079,
-      "sha256": "eccfe63a992963d2c64417a2feebe97fd5ec08d0826c92e7ae70dcffaa9cd7d5"
+      "bytes": 48639,
+      "sha256": "2243502a692cccf5f1bdcc3076e29c7d29557bea72bb09de82e19f8128f23d85"
     },
     {
       "path": "server/task-context.ts",

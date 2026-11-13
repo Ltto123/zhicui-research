@@ -1,6 +1,7 @@
 import path from 'node:path';
 import {createHash,randomUUID} from 'node:crypto';
 import {isDeepStrictEqual} from 'node:util';
+import {resolveArtifactTitle} from './artifact-title';
 import type {ArgumentOutline,Artifact,Evidence,ReviewIssue,ReviewResult,Run} from '../shared/types';
 import type {Store} from './store';
 import {selectedEvidence,researchRequest,writingRequest,requiredEvidenceCount,minimumReferences,enforceReviewEvidence,
@@ -415,7 +416,7 @@ export async function publishDraft(context:ActionContext){
  const limitations=[...new Set([...run.review!.limitations,...run.review!.issues.map(issue=>`${issue.location}：${issue.issue}`)])];
  const delivery=deliveryRequirements(run.plan!,evidence,cited,materials(context,run),resolvedExportFormat(run,materials(context,run)),run.draft);
  limitations.push(...delivery.limitations);
- const artifact:Artifact={id:randomUUID(),runId:run.id,title:run.plan!.title,markdown:run.plan!.taskType==='format'?run.draft!:withReferences(run.draft!,evidence,{runId:run.id}),createdAt:new Date().toISOString(),status:limitations.length?'limited':'completed',formats:[],limitations,format:delivery.format};
+ const artifact:Artifact={id:randomUUID(),runId:run.id,title:resolveArtifactTitle(run.draft!,run.plan!.title),markdown:run.plan!.taskType==='format'?run.draft!:withReferences(run.draft!,evidence,{runId:run.id}),createdAt:new Date().toISOString(),status:limitations.length?'limited':'completed',formats:[],limitations,format:delivery.format};
  context.stage('生成可编辑稿与阅读版');
  registerArtifactOutput(context.store.root,run.id,artifact.id);
  const exported=await(context.export??exportArtifact)(artifact,path.join(context.store.root,'artifacts'));recheck();
