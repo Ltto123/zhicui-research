@@ -14,6 +14,7 @@ import { researchCapabilities } from './research-skills';
 import { retrievalStatus, checkLiteratureSources } from './network';
 import { resolveDoi } from './doi';
 import { getEvidenceSource } from './sources';
+import {sourceNavigation} from './source-navigation';
 import { registerLibraryRoutes } from './library-routes';
 import {registerPaperLibraryRoutes} from './paper-library-routes';
 import {WorkspaceService,type WorkspaceDependencies} from './workspace-service';
@@ -57,6 +58,9 @@ export async function buildApp(dataRoot:string,workspaceDependencies:WorkspaceDe
   app.get('/api/doi/resolve',async(req)=>{
     const {doi}=z.object({doi:z.string().min(1).max(500)}).parse(req.query);
     return resolveDoi(doi,AbortSignal.timeout(20_000));
+  });
+  app.get<{Params:{id:string;evidenceId:string}}>('/api/runs/:id/evidence/:evidenceId/navigation',async req=>{
+    return sourceNavigation(store,uuid.parse(req.params.id),z.string().min(1).max(200).parse(req.params.evidenceId));
   });
   app.get<{Params:{id:string;evidenceId:string}}>('/api/runs/:id/evidence/:evidenceId/source',async(req,reply)=>{
     const id=uuid.parse(req.params.id),evidenceId=z.string().min(1).max(200).parse(req.params.evidenceId);

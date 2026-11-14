@@ -26,6 +26,8 @@ import {WorkspaceTree,type WorkspaceChange} from '../components/WorkspaceTree';
 import {SavedWorkspacePanel} from '../components/SavedWorkspacePanel';
 import {PaperLibrary} from '../components/PaperLibrary';
 import {usePaperNavigation} from '../lib/paper-navigation';
+import {SourceLink,SourceReturnContext} from '../components/SourceLink';
+import {readWorkspaceReturn,workspaceReturnHref,type WorkspaceReturnLocation} from '../lib/workspace-return';
 import {acceptResearchOptions,confirmResearchOptions,invalidateResearchOptions,rebindResearchOptionsScope,researchOptionsSnapshot,researchOptionsStatus,type ResearchOptionsConfirmationState,type ResearchOptionsValues} from '../lib/research-options-confirmation';
 
 const materialLabels: Record<Material['role'], string> = { evidence: '研究材料', method: '方法要求', format: '格式规范' };
@@ -49,6 +51,8 @@ export default function Workspace() {
   const [conversations, setConversations] = useState<ConversationSummary[]>([]);
   const [sections,setSections]=useState<WorkspaceSection[]>([]);
   const [savedOpen,setSavedOpen]=useState(false);
+  const [initialSavedLibraryId,setInitialSavedLibraryId]=useState<string>();
+  const [returnRestore,setReturnRestore]=useState<WorkspaceReturnLocation>();
   const [savedArtifacts,setSavedArtifacts]=useState<Set<string>>(new Set());
   const [savingArtifact,setSavingArtifact]=useState('');
   const [draftFiles,setDraftFiles]=useState<{file:File;role:Material['role']}[]>([]);
@@ -159,7 +163,8 @@ export default function Workspace() {
     return result;
   },[adoptConversation]);
 
-  const selectConversation = useCallback(async (id: string) => {
+  const selectConversation = useCallback(async (id: string, restore?: WorkspaceReturnLocation) => {
+    setReturnRestore(restore);
     ++navigationVersion.current;
     resetOptionsVisit();
     const version = ++selectionVersion.current;
@@ -171,21 +176,27 @@ export default function Workspace() {
       const result = await api<Conversation>(`/conversations/${id}`);
       if(selectionVersion.current!==version||activeRef.current!==id)return;
       projectRef.current=result.projectId;setProjectId(result.projectId);adoptConversation(result);
+      if(restore?.tab){setTab(restore.tab);setRightOpen(true);}
+      if(restore?.artifactId&&result.artifacts.some(item=>item.id===restore.artifactId))setSelectedArtifactId(restore.artifactId);
       // Loading the underlying chat must preserve an open paper-library link.
-      window.history.replaceState(window.history.state, '', `/?conversation=${encodeURIComponent(id)}${window.location.hash}`);
+      window.history.replaceState(window.history.state, '', restore
+        ? workspaceReturnHref({...restore,conversationId:id,projectId:result.projectId})
+        : `/?conversation=${encodeURIComponent(id)}${window.location.hash}`);
       const files=await api<Material[]>(`/projects/${encodeURIComponent(result.projectId)}/materials`);
       if(selectionVersion.current===version&&activeRef.current===id)setMaterials(files);
     } catch (error) { if (selectionVersion.current === version) setError(errorText(error)); }
     finally { if (selectionVersion.current === version) setLoading(false); }
   }, [adoptConversation,resetOptionsVisit]);
 
-  const selectProject = useCallback(async (id: string) => {
+  const selectProject = useCallback(async (id: string, restore?: WorkspaceReturnLocation) => {
+    setReturnRestore(restore);
     ++navigationVersion.current;
     resetOptionsVisit();
     const version = ++selectionVersion.current;
     projectRef.current = id; activeRef.current = ''; setProjectId(id); setConversation(undefined);
     setMaterials([]); setLoading(true); setError(''); setDraft('');setDraftFiles([]);setDraftMaterialIds([]); setTaskIntent('continue'); setPollWarning(false);setLeftOpen(false);
-    window.history.replaceState(null,'','/');
+    window.history.replaceState(window.history.state,'',workspaceReturnHref({...restore,projectId:id}));
+    if(restore?.tab){setTab(restore.tab);setRightOpen(true);}
     setSelectedArtifactId(''); setSelectedMaterialId('');
     setMethodInstructions(''); setFormatInstructions(''); setMethodMode('auto'); setWaitForConfirmation(true); setMethodDirty(untouchedMethodFields);
     try {
@@ -200,16 +211,22 @@ export default function Workspace() {
     const abort = new AbortController();
     setRightOpen(window.innerWidth > 1190);
     const version=++indexVersion.current,navigationVersion=selectionVersion.current;
+    const restore=readWorkspaceReturn(window.location.pathname+window.location.search+window.location.hash);
+    setReturnRestore(restore);
     const explicit=new URL(window.location.href).searchParams.get('conversation');
+    if(restore?.saved){setInitialSavedLibraryId(restore.savedLibraryId);setSavedOpen(true);}
     api<WorkspaceIndex>('/workspace', { signal: abort.signal }).then(index => {
       if(abort.signal.aborted||indexVersion.current!==version)return;
       setProjects(index.projects);setConversations(index.conversations);setSections(index.sections);
-      if(explicit&&selectionVersion.current===navigationVersion)void selectConversation(explicit);else setLoading(false);
+      if(selectionVersion.current!==navigationVersion)return;
+      if(explicit)void selectConversation(explicit,restore);
+      else if(restore?.projectId&&index.projects.some(item=>item.id===restore.projectId))void selectProject(restore.projectId,restore);
+      else setLoading(false);
     }).catch(error => { if (!abort.signal.aborted) { setError(errorText(error)); setLoading(false); } });
     modelUpdates.current!.read(()=>modelConnectionActions().load(abort.signal),abort.signal).catch(() => {});
     api<ProviderStatus[]>('/providers', { signal: abort.signal }).then(value=>{if(!abort.signal.aborted)setProviders(value);}).catch(() => {});
     return () => abort.abort();
-  }, [selectConversation]);
+  }, [selectConversation,selectProject]);
 
   useEffect(() => {
     if (!conversation) return;
@@ -276,6 +293,7 @@ export default function Workspace() {
   async function newConversation(targetProjectId?:string) {
     if (requestBusy.current || uploading) return;
     if(targetProjectId){await selectProject(targetProjectId);return;}
+    setReturnRestore(undefined);
     ++navigationVersion.current;
     resetOptionsVisit();
     ++selectionVersion.current; activeRef.current = '';projectRef.current='';setProjectId('');setMaterials([]); setConversation(undefined); setDraft('');setDraftFiles([]);setDraftMaterialIds([]); setTaskIntent('continue');
@@ -440,7 +458,20 @@ export default function Workspace() {
   const paperLocation = paperNavigation.location;
   const paperProject = paperLocation && projects.find(item => item.id === paperLocation.projectId);
   const paperChat = paperLocation && conversations.find(item => item.projectId === paperLocation.projectId && item.id === paperLocation.conversationId);
-  return <><main hidden={Boolean(paperLocation)} className={`workspace ${rightOpen ? 'with-inspector' : ''}`}>
+  const pendingReturn=loading&&returnRestore&&(returnRestore.conversationId
+    ? conversation?.id!==returnRestore.conversationId
+    : Boolean(returnRestore.projectId&&projectId!==returnRestore.projectId))?returnRestore:undefined;
+  const sourceReturnTo=workspaceReturnHref({conversationId:conversation?.id??pendingReturn?.conversationId,projectId:projectId||pendingReturn?.projectId,tab:pendingReturn?.tab??tab,
+    artifactId:pendingReturn?.artifactId??(tab==='artifacts'?selectedArtifact?.id:undefined),saved:savedOpen,savedLibraryId:initialSavedLibraryId,
+    libraryItemId:returnRestore?.libraryItemId,
+    paperHash:paperLocation?`#papers/${paperLocation.projectId}${paperLocation.conversationId?'/'+paperLocation.conversationId:''}`:undefined});
+  // A restored URL must follow later UI changes, rather than replay old choices
+  // on refresh. Do not rewrite it while its underlying conversation is loading.
+  useEffect(()=>{
+    if(pendingReturn||!returnRestore||!(returnRestore.tab||returnRestore.artifactId||returnRestore.saved))return;
+    window.history.replaceState(window.history.state,'',sourceReturnTo.split('#')[0]+window.location.hash);
+  },[pendingReturn,returnRestore,sourceReturnTo]);
+  return <SourceReturnContext.Provider value={sourceReturnTo}><main hidden={Boolean(paperLocation)} className={`workspace ${rightOpen ? 'with-inspector' : ''}`}>
     {leftOpen && <button className="mobile-scrim" aria-label="关闭对话侧栏" onClick={() => setLeftOpen(false)} />}
     <aside className={`sidebar ${leftOpen ? 'open' : ''}`} aria-label="课题与对话">
       <div className="brand"><button className="brand-home" aria-label="智萃科研首页" onClick={()=>void newConversation()} disabled={sending||uploading}><div className="brand-symbol"><Leaf size={24} strokeWidth={1.5} /></div><div><strong>智萃科研</strong><span>ZHICUI RESEARCH</span></div></button><button className="icon-button mobile-close" aria-label="收起对话侧栏" onClick={() => setLeftOpen(false)}><PanelLeftClose size={17} /></button></div>
@@ -523,7 +554,7 @@ export default function Workspace() {
           {evidenceRun && <details className="evidence-list"><summary><BookOpen size={14} />{evidenceRun.id === latestRun?.id ? '已保存资料' : '此前已保存资料'}<span>{inventory.total} 条</span><ChevronDown size={12} /></summary><p className="evidence-inventory">外部文献 {inventory.papers} 条 · 用户材料或既有成果 {inventory.materials} 条 · 计算结果 {inventory.calculations} 条。资料总数不是论文引用数，列表也保留已排除候选。{evidenceRun.id !== latestRun?.id && '当前查看的是上轮记录，本轮尚未接入。'}</p>{evidenceRun.evidence.length ? evidenceRun.evidence.map(source => {
             const expanded = selectedEvidenceId === source.id;
             const textLabel = source.readScope === 'full_text' ? '正文' : source.readScope === 'abstract' ? '摘要' : '文本';
-            return <div className="evidence-item" key={source.id}><strong>{source.title}</strong><div><span>{scopeLabels[source.readScope]}</span><small>{source.id}</small></div><p>{source.location}</p>{['abstract','full_text','metadata'].includes(source.readScope) && <a href={evidenceSourceHref(evidenceRun.id,source.id)} target="_blank" rel="noopener noreferrer">打开原文<ArrowUpRight size={12} /></a>}
+            return <div className="evidence-item" key={source.id}><strong>{source.title}</strong><div><span>{scopeLabels[source.readScope]}</span><small>{source.id}</small></div><p>{source.location}</p>{['abstract','full_text','metadata'].includes(source.readScope) && <SourceLink href={evidenceSourceHref(evidenceRun.id,source.id)} target="_blank" rel="noopener noreferrer">打开原文<ArrowUpRight size={12} /></SourceLink>}
               {['abstract','full_text','metadata'].includes(source.readScope) && <button className={libraryStyles.collect} onClick={() => void collectEvidence(evidenceRun.id, source.id)} disabled={!projectId || loading || collecting === `${projectId}:${evidenceRun.id}:${source.id}`}>{collecting === `${projectId}:${evidenceRun.id}:${source.id}` ? <LoaderCircle size={12} className="spin" /> : <Plus size={12} />}收藏到文献夹</button>}
               {collected?.projectId === projectId && collected.evidenceKey === `${evidenceRun.id}:${source.id}` && <p className={libraryStyles.collectNotice} role="status">{collected.text}<button onClick={() => setTab('library')}>打开文献夹</button></p>}
               {source.text && <button className="evidence-read-button" aria-expanded={expanded} onClick={() => setSelectedEvidenceId(expanded ? '' : source.id)}>{expanded ? '收起' : '阅读'}已获取{textLabel}（{source.text.length} 字符）<ChevronDown size={12} /></button>}
@@ -543,12 +574,12 @@ export default function Workspace() {
       </div>
     </aside>}
     <input type="file" ref={fileInput} hidden multiple accept=".pdf,.docx,.txt,.md,.csv,.tsv,.json" onChange={event => void upload(event.target.files)} />
-    {!paperLocation && savedOpen && <SavedWorkspacePanel onClose={()=>setSavedOpen(false)}/>}
+    {!paperLocation && savedOpen && <SavedWorkspacePanel initialLibraryId={initialSavedLibraryId} onLibraryChange={setInitialSavedLibraryId} onClose={()=>{setSavedOpen(false);setInitialSavedLibraryId(undefined);}}/>}
     {!paperLocation && settingsOpen && <Settings onClose={() => setSettingsOpen(false)} onConnectionsChanged={adoptModelConnections} />}
   </main>
   {paperLocation && <main className="paper-library-screen">
     <PaperLibrary projectId={paperLocation.projectId} projectName={paperProject?.name ?? '项目'}
       conversationId={paperLocation.conversationId} conversationTitle={paperChat?.title}
       onClose={paperNavigation.close} onCollected={() => setLibraryRefresh(value => value + 1)} />
-  </main>}</>;
+  </main>}</SourceReturnContext.Provider>;
 }

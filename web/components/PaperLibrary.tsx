@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import {
   ArrowLeft, ArrowUpRight, BookOpen, Bookmark, Check, ChevronDown, ChevronLeft,
   ChevronRight, FileText, FolderOpen, Globe, Library, Link2, RefreshCw, Search, X,
@@ -8,6 +8,8 @@ import {
 import type { PaperLibraryItem, PaperLibraryPage } from '../../shared/paper-library';
 import { api, body, errorText } from '../lib/api';
 import { evidenceSourceHref } from '../lib/source-links';
+import {SourceLink,SourceReturnContext} from './SourceLink';
+import {readWorkspaceReturn,workspaceReturnHref} from '../lib/workspace-return';
 import styles from './PaperLibrary.module.css';
 
 interface PaperLibraryProps {
@@ -124,7 +126,7 @@ function PaperRow({ paper, projectId, onCollected }: {
       {doi && <a href={doi} title={paper.doi} target="_blank" rel="noopener noreferrer"><Link2 size={13} />DOI</a>}
       {website && website !== doi && <a href={website} target="_blank" rel="noopener noreferrer"><Globe size={13} />来源网页</a>}
       {cachedPdf && <a href={cachedPdf} target="_blank" rel="noopener noreferrer"><FileText size={13} />已存 PDF</a>}
-      {reader && <a href={reader} target="_blank" rel="noopener noreferrer"><BookOpen size={13} />工作台阅读</a>}
+      {reader && <SourceLink href={reader} target="_blank" rel="noopener noreferrer"><BookOpen size={13} />工作台阅读</SourceLink>}
       {externalResources.map((url, index) => <a key={url} href={url} target="_blank" rel="noopener noreferrer">
         <ArrowUpRight size={13} />全文线索{externalResources.length > 1 ? ` ${index + 1}` : ''}</a>)}
     </div>
@@ -147,6 +149,7 @@ export function PaperLibrary(props: PaperLibraryProps) {
 }
 
 function PaperLibraryView({ projectId, projectName, conversationId, conversationTitle, onClose, onCollected }: PaperLibraryProps) {
+  const parentReturnTo=useContext(SourceReturnContext);
   const [range, setRange] = useState<'conversation' | 'project'>(conversationId ? 'conversation' : 'project');
   const [text, setText] = useState('');
   const [query, setQuery] = useState('');
@@ -198,7 +201,8 @@ function PaperLibraryView({ projectId, projectName, conversationId, conversation
     listTop.current?.scrollTo({ top: 0 });
   };
 
-  return <section className={styles.screen} aria-label="论文库">
+  const returnTo=workspaceReturnHref({...readWorkspaceReturn(parentReturnTo??'/'),paperHash:`#papers/${projectId}${range==='conversation'&&conversationId?'/'+conversationId:''}`});
+  return <SourceReturnContext.Provider value={returnTo}><section className={styles.screen} aria-label="论文库">
     <header className={styles.topbar}>
       <button className={styles.back} onClick={onClose}><ArrowLeft size={16} />返回工作台</button>
       <span className={styles.breadcrumb}><FolderOpen size={14} aria-hidden />{projectName}</span>
@@ -246,5 +250,5 @@ function PaperLibraryView({ projectId, projectName, conversationId, conversation
         </nav>}
       </div>
     </div>
-  </section>;
+  </section></SourceReturnContext.Provider>;
 }

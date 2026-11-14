@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowUpRight, Bookmark, Check, LoaderCircle, Search } from 'lucide-react';
 import type { LibraryItem, LibraryReadingStatus } from '../../shared/library';
 import { api, body, errorText } from '../lib/api';
 import { evidenceSourceHref } from '../lib/source-links';
+import {SourceLink,SourceReturnContext} from './SourceLink';
+import {readWorkspaceReturn,workspaceReturnHref} from '../lib/workspace-return';
 import styles from './LibraryPanel.module.css';
 
 export interface LibraryDraft {
@@ -24,6 +26,10 @@ const parseTags = (value: string) => [...new Set(value.split(/[,，\n]/).map(tag
 
 /** The owning workspace keeps this cache across panel and project switches. */
 export function LibraryPanel({ projectId, refreshKey, drafts, onChanged }: { projectId: string; refreshKey: number; drafts: Map<string, LibraryDraft>; onChanged: () => void }) {
+  const parentReturnTo=useContext(SourceReturnContext);
+  const returnLocation=readWorkspaceReturn(parentReturnTo??'/');
+  const initialSelection=useRef({projectId,id:returnLocation?.libraryItemId});
+  if(initialSelection.current.projectId!==projectId)initialSelection.current={projectId,id:returnLocation?.libraryItemId};
   const [collection, setCollection] = useState<{ projectId: string; items: LibraryItem[] }>();
   const [selected, setSelected] = useState<{ projectId: string; id: string }>();
   const [search, setSearch] = useState('');
@@ -56,7 +62,15 @@ export function LibraryPanel({ projectId, refreshKey, drafts, onChanged }: { pro
         if (!drafts.get(key)?.dirty) drafts.set(key, fromItem(item));
       }
       setCollection({ projectId, items });
-      setSelected(previous => previous?.projectId === projectId && items.some(item => item.id === previous.id) ? previous : items[0] ? { projectId, id: items[0].id } : undefined);
+      // Consume the requested item only after this project's list loads. Later
+      // refreshes retain the user's current selection instead of restoring again.
+      const requestedId=initialSelection.current.id;
+      initialSelection.current.id=undefined;
+      setSelected(previous => {
+        if(previous?.projectId===projectId&&items.some(item=>item.id===previous.id))return previous;
+        const next=items.find(item=>item.id===requestedId)??items[0];
+        return next?{projectId,id:next.id}:undefined;
+      });
     }).catch(cause => {
       if (!controller.signal.aborted && activeProject.current === projectId && requestVersion.current === version) setError(errorText(cause));
     }).finally(() => {
@@ -133,7 +147,8 @@ export function LibraryPanel({ projectId, refreshKey, drafts, onChanged }: { pro
     }
   }
 
-  return <section className={styles.panel} aria-label="当前课题文献夹">
+  const returnTo=workspaceReturnHref({...returnLocation,libraryItemId:item?.id});
+  return <SourceReturnContext.Provider value={returnTo}><section className={styles.panel} aria-label="当前课题文献夹">
     <header className={styles.intro}><div><h2>我的文献夹</h2><p>收藏当前课题值得继续阅读的文献。</p></div><Bookmark size={20} strokeWidth={1.5} /></header>
     <p className={styles.boundary}>个人笔记不会自动发送给 AI。阅读状态由你标记，不代表 AI 已阅读；这里的整理不会调用模型或联网检索。</p>
     <div className={styles.toolbar}><span>{items.length} 篇收藏</span>{projectId && items.length > 0 ? <a href={`/api/projects/${encodeURIComponent(projectId)}/library/export.bib`} download="zhicui-library.bib"><ArrowDown size={13} />导出全部 BibTeX</a> : <button disabled><ArrowDown size={13} />导出 BibTeX</button>}</div>
@@ -150,7 +165,7 @@ export function LibraryPanel({ projectId, refreshKey, drafts, onChanged }: { pro
     </button>)}</div>
     {item && draft && <section className={styles.editor} aria-label={`整理文献：${item.title}`}>
       <h3>{item.title}</h3><p className={styles.metadata}>{[item.journal, item.year].filter(Boolean).join(' · ')}{item.doi && <span>DOI：{item.doi}</span>}</p>
-      <div className={styles.source}><span>{scopeLabels[item.readScope]}</span>{origin && <a href={evidenceSourceHref(origin.runId, origin.evidenceId)} target="_blank" rel="noopener noreferrer">打开原文<ArrowUpRight size={12} /></a>}</div>
+      <div className={styles.source}><span>{scopeLabels[item.readScope]}</span>{origin && <SourceLink href={evidenceSourceHref(origin.runId, origin.evidenceId)} target="_blank" rel="noopener noreferrer">打开原文<ArrowUpRight size={12} /></SourceLink>}</div>
       {item.abstract && <details className={styles.abstract}><summary>查看已保存摘要</summary><p>{item.abstract}</p></details>}
       <label>我的阅读状态<select aria-label="我的阅读状态" value={draft.readingStatus} onChange={event => edit({ readingStatus: event.target.value as LibraryReadingStatus })} disabled={busy}><option value="unread">未读</option><option value="reading">在读</option><option value="read">已读</option></select></label>
       <label>标签<input aria-label="文献标签" value={draft.tags} placeholder="如：方法参考，待精读" maxLength={520} onChange={event => edit({ tags: event.target.value })} disabled={busy} /><small>用逗号分隔，最多 12 个标签。</small></label>
@@ -161,5 +176,5 @@ export function LibraryPanel({ projectId, refreshKey, drafts, onChanged }: { pro
       <div className={styles.remove}><button onClick={() => void remove()} disabled={draft.dirty || busy || loading}>取消收藏</button><small>{draft.dirty ? '请先保存修改，再取消收藏。' : '只移出文献夹，原始资料和任务记录仍保留。'}</small></div>
     </section>}
     {orphanDrafts.map(([orphanKey, value]) => <section className={styles.conflict} key={orphanKey}><strong>该收藏已被移除，未保存内容仍保留</strong><p>请复制需要保留的内容，再到材料中重新收藏。</p><p>标签：{value.tags || '无'} · 阅读状态：{readingLabels[value.readingStatus]}</p><textarea aria-label="已移除文献的未保存笔记" rows={5} value={value.note} readOnly /></section>)}
-  </section>;
+  </section></SourceReturnContext.Provider>;
 }

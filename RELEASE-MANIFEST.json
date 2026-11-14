@@ -18,21 +18,6 @@
       "sha256": "5075fbfef1c5bedeeccd2cddda6f734f7508ee685fe098086ef0771a85b5d507"
     },
     {
-      "path": "README.md",
-      "bytes": 14287,
-      "sha256": "bd35356a673c280c6c6c68f64d32eab549d606b99f5439f583b5eb4b07e8d55d"
-    },
-    {
-      "path": "THIRD_PARTY_NOTICES.md",
-      "bytes": 12794,
-      "sha256": "0fc7794bd0da68215117f25f7fa4d7cb3feb873c684910a08abf5913aacaa5e6"
-    },
-    {
-      "path": "UPSTREAM.md",
-      "bytes": 3118,
-      "sha256": "ff7eedf54f1130a38c7bba4d3c9350c895ccf1b1fd42864dc7258445fca74bcc"
-    },
-    {
       "path": "methods/00-共同原则与用户方法.md",
       "bytes": 6918,
       "sha256": "a95c4d5330fa9a805381f702ffd01800d9d0df4aceb738b3b8b4961c48f78baa"
@@ -118,6 +103,11 @@
       "sha256": "cf1e2af58dadb6fb8ef3b9277b735c06985bb6cc1df33a684d42fad72634087f"
     },
     {
+      "path": "README.md",
+      "bytes": 14287,
+      "sha256": "bd35356a673c280c6c6c68f64d32eab549d606b99f5439f583b5eb4b07e8d55d"
+    },
+    {
       "path": "research-skills.md",
       "bytes": 4369,
       "sha256": "e222cf5967d8759c11a5fa38bb11ede9698deb45a6087f2ee045ef733501a654"
@@ -139,8 +129,8 @@
     },
     {
       "path": "server/app.ts",
-      "bytes": 13755,
-      "sha256": "6f03766c92d824bfb18028dee299158239ce6b7e706ba4367522e0474dd88fce"
+      "bytes": 14044,
+      "sha256": "6f664da56a6a9e9c7d30b8ee420b0041c7ad152892ba51e003d44d247245a569"
     },
     {
       "path": "server/artifact-title.ts",
@@ -433,6 +423,11 @@
       "sha256": "f2d5ac9bf53d18519c2995f6c7051da47a06cbd74c257eede33e64d3da267ab4"
     },
     {
+      "path": "server/source-navigation.ts",
+      "bytes": 997,
+      "sha256": "ce56e8b6ba7bfe9a5cea32b6670e8840a1155b8384eebc9c82c6137c08c441aa"
+    },
+    {
       "path": "server/sources.ts",
       "bytes": 15061,
       "sha256": "cd916aa6b65d73c33fbc949c19a4baccded3cc9ad6f1edcbf689471d34690abd"
@@ -453,16 +448,6 @@
       "sha256": "b1a47469d34d5d61957622ac44b0b3144ccf6eda10eb7c84abf1d301d76221a0"
     },
     {
-      "path": "server/upstream/LICENSE",
-      "bytes": 1064,
-      "sha256": "d5a79316dec7f93a89701af72b118ff77030a8db38acd3e1aa05f4a4e7757241"
-    },
-    {
-      "path": "server/upstream/README.md",
-      "bytes": 1991,
-      "sha256": "77a998c7f98918209c1a43ba51bb919b7892abd5131dd54a048d278b4f36be27"
-    },
-    {
       "path": "server/upstream/atomic-json.ts",
       "bytes": 2196,
       "sha256": "074bd14f42456e76ed973d9d9d61925efd380f0b81766c07cf0329f78436ea01"
@@ -476,6 +461,16 @@
       "path": "server/upstream/http-proxy.ts",
       "bytes": 6267,
       "sha256": "87ed94b297308b421a9f6a458309c4657e436cce6dfd8843a51e5395dbdcf83d"
+    },
+    {
+      "path": "server/upstream/LICENSE",
+      "bytes": 1064,
+      "sha256": "d5a79316dec7f93a89701af72b118ff77030a8db38acd3e1aa05f4a4e7757241"
+    },
+    {
+      "path": "server/upstream/README.md",
+      "bytes": 1991,
+      "sha256": "77a998c7f98918209c1a43ba51bb919b7892abd5131dd54a048d278b4f36be27"
     },
     {
       "path": "server/upstream/research-session-runtime.ts",
@@ -553,9 +548,19 @@
       "sha256": "3c5947a0dab51c62ae61288b0906e3bdc995f9a9d3a4386130709875ae940825"
     },
     {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 12794,
+      "sha256": "0fc7794bd0da68215117f25f7fa4d7cb3feb873c684910a08abf5913aacaa5e6"
+    },
+    {
       "path": "tsconfig.json",
       "bytes": 370,
       "sha256": "6fa12003411c48f263f29db3b3aa4ea141483c750c3ceeadc45758f76e92776d"
+    },
+    {
+      "path": "UPSTREAM.md",
+      "bytes": 3118,
+      "sha256": "ff7eedf54f1130a38c7bba4d3c9350c895ccf1b1fd42864dc7258445fca74bcc"
     },
     {
       "path": "web/app/icon.svg",
@@ -569,13 +574,13 @@
     },
     {
       "path": "web/app/page.tsx",
-      "bytes": 57510,
-      "sha256": "128667aaa5664cd8438fbbce4de9f3001104b3876a35c1a980af1979c8eccceb"
+      "bytes": 60308,
+      "sha256": "4dab96d45c403ae9b8bac149534333267cb11bfa1ca896e97efdd9ea7d28769f"
     },
     {
       "path": "web/app/source/page.tsx",
-      "bytes": 9526,
-      "sha256": "793ed14632ba0abd06d0b89386d6c8df7e149d61abdcbe36fc05e8378c4c996d"
+      "bytes": 11535,
+      "sha256": "ca3c671947c4b346aef62e3ddbb1463b81cf0ec03b1c74aaa5b9d4e45a6ee2da"
     },
     {
       "path": "web/app/source/source.module.css",
@@ -604,13 +609,13 @@
     },
     {
       "path": "web/components/LibraryPanel.tsx",
-      "bytes": 14938,
-      "sha256": "7e981ad10ea41cb4213b4592eee0bc8e43e469a877c0f934a080b7333987d68b"
+      "bytes": 15941,
+      "sha256": "a9f8e5cfb78fe44839884ad81f82f759178fd6912b5e13a1075559d9431b3ac1"
     },
     {
       "path": "web/components/Markdown.tsx",
-      "bytes": 3440,
-      "sha256": "d6ab94199198b633fcb7c31e7eec51d1e0b623cdc447b1f4ae8dbc0492564e50"
+      "bytes": 3499,
+      "sha256": "34837b72e7f66da8a4304fa96ccb87a0771c2c330de736b271ad89dd2c85b962"
     },
     {
       "path": "web/components/ModelConnectionManager.tsx",
@@ -629,8 +634,8 @@
     },
     {
       "path": "web/components/PaperLibrary.tsx",
-      "bytes": 13691,
-      "sha256": "f92cd35ad44eeca6aa31446b7d719ff175019e2cb16d9cfcecde43ee01548696"
+      "bytes": 14178,
+      "sha256": "e54a20d6a1cfe7dde94144768eac5188e7b45e3705a7cc8eafb49dd3d914b8d1"
     },
     {
       "path": "web/components/ResearchOptionsConfirmation.tsx",
@@ -649,13 +654,18 @@
     },
     {
       "path": "web/components/SavedWorkspacePanel.tsx",
-      "bytes": 2273,
-      "sha256": "a0bdf09cd02ab9ba50f768fa425bea389e5526fde39b9f35233fe3fa951a9f6f"
+      "bytes": 2854,
+      "sha256": "33ed900abf05dd101585cf7aea5eb96962cf52de04ed9a15e2e55f71f656a562"
     },
     {
       "path": "web/components/Settings.tsx",
       "bytes": 7714,
       "sha256": "c5edaeef4a5b876d2281e48e040b6eae82477038859f4d7c68e375d725e2b110"
+    },
+    {
+      "path": "web/components/SourceLink.tsx",
+      "bytes": 813,
+      "sha256": "a34565378d680ae316512f97c4b2da9cab3e0fb16d8cd0cdcda1198aa5c59fb2"
     },
     {
       "path": "web/components/TaskRequirements.module.css",
@@ -716,6 +726,11 @@
       "path": "web/lib/source-links.ts",
       "bytes": 1950,
       "sha256": "011f5ebfe81e57090ca3a293530687484acfc7dffa284f442104879df3d0c5d6"
+    },
+    {
+      "path": "web/lib/workspace-return.ts",
+      "bytes": 4643,
+      "sha256": "10da6dd4fbbcc17b7e7372a616aac48590cc24a4c269e518896cbe2e6c23e594"
     },
     {
       "path": "web/next.config.ts",

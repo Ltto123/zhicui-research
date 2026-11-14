@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { ArrowLeft, ExternalLink, FileText, Download, LoaderCircle } from 'lucide-react';
 import type { Evidence } from '../../../shared/types';
 import { api, errorText } from '../../lib/api';
+import {safeWorkspaceReturn} from '../../lib/workspace-return';
 import styles from './source.module.css';
 
 type SourceResponse = { evidence: Evidence; cached: boolean };
@@ -20,8 +21,13 @@ function publisherURL(value: string): string {
   return url.href;
 }
 
-function Shell({ children }: { children: React.ReactNode }) {
-  return <main className={styles.page}><header className={styles.topbar}><a href="/" className={styles.back}><ArrowLeft size={16} />返回智萃工作台</a><span>文献原文</span></header>{children}</main>;
+function Shell({ children,backHref,onRetryReturn }: { children: React.ReactNode;backHref?:string;onRetryReturn?:()=>void }) {
+  return <main className={styles.page}><header className={styles.topbar}>
+    {backHref?<a href={backHref} className={styles.back}><ArrowLeft size={16} />返回智萃工作台</a>:onRetryReturn?<div className={styles.back}>
+      <button className={styles.back} onClick={onRetryReturn}><ArrowLeft size={16} />重试返回位置</button>
+      <a href="/" className={styles.back}>打开工作台首页</a>
+    </div>:<span className={styles.back} role="status"><LoaderCircle size={16} className={styles.spinner} />正在定位返回位置</span>}
+    <span>文献原文</span></header>{children}</main>;
 }
 
 function SourceReader() {
@@ -32,6 +38,12 @@ function SourceReader() {
   const hasSource = Boolean(runId || evidenceId);
   const sourceValid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(runId) && /^[a-z0-9_-]{1,200}$/i.test(evidenceId);
   const valid = hasSource ? sourceValid : doi.length <= 1000 && /^10\.\d{4,9}\/\S+$/i.test(doi);
+  const explicitReturn=query.getAll('returnTo').length===1?safeWorkspaceReturn(query.get('returnTo')):undefined;
+  const navigationKey=JSON.stringify([runId,evidenceId,explicitReturn??null]);
+  const [navigation,setNavigation]=useState<{key:string;href?:string;failed?:boolean}|null>(null);
+  const [navigationAttempt,setNavigationAttempt]=useState(0);
+  const currentNavigation=navigation?.key===navigationKey?navigation:undefined;
+  const backHref=explicitReturn??(!sourceValid?'/':currentNavigation?.href);
   const [attempt, setAttempt] = useState(0);
   const [result, setResult] = useState<SourceResponse | null>(null);
   const [publisher, setPublisher] = useState<ResolvedDoi | null>(null);
@@ -42,6 +54,23 @@ function SourceReader() {
   const [view, setView] = useState<'pdf' | 'text'>('text');
   const controller = useRef<AbortController | null>(null);
   const publisherController = useRef<AbortController | null>(null);
+
+  useEffect(()=>{
+    if(explicitReturn||!sourceValid)return;
+    const current=new AbortController();
+    setNavigation({key:navigationKey});
+    void (async()=>{
+      try{
+        const value=await api<{returnTo?:unknown}>(`/runs/${encodeURIComponent(runId)}/evidence/${encodeURIComponent(evidenceId)}/navigation`,{signal:AbortSignal.any([current.signal,AbortSignal.timeout(10_000)])});
+        const href=typeof value?.returnTo==='string'?safeWorkspaceReturn(value.returnTo):undefined;
+        if(!href)throw new Error('返回位置无效');
+        if(!current.signal.aborted)setNavigation({key:navigationKey,href});
+      }catch{
+        if(!current.signal.aborted)setNavigation({key:navigationKey,failed:true});
+      }
+    })();
+    return ()=>current.abort();
+  },[runId,evidenceId,sourceValid,explicitReturn,navigationKey,navigationAttempt]);
 
   useEffect(() => {
     const current = new AbortController(); controller.current = current;
@@ -86,7 +115,7 @@ function SourceReader() {
   const pdf = evidence?.sourceDocument?.mimeType === 'application/pdf';
   const scope = evidence?.readScope === 'full_text' ? '已获取正文' : evidence?.readScope === 'abstract' ? '摘要 · 尚未取得正文' : evidence?.readScope === 'metadata' ? '仅有书目信息 · 尚未取得正文' : '来源材料';
 
-  return <Shell>
+  return <Shell backHref={backHref} onRetryReturn={!backHref&&currentNavigation?.failed?()=>setNavigationAttempt(value=>value+1):undefined}>
     {!valid ? <section className={styles.notice}><h1>无法读取原文</h1><p>原文链接参数不完整或无效。</p></section> : <>
       {loading && <section className={styles.notice} role="status"><LoaderCircle className={styles.spinner} size={26} /><h1>{hasSource ? '正在读取文献原文' : '正在定位出版商页面'}</h1><p>通过工作台的网络连接读取，最长等待 90 秒。</p><button className={styles.button} onClick={() => { controller.current?.abort(); setLoading(false); setError('读取已停止，可重新尝试。'); }}>停止读取</button></section>}
       {error && <section className={styles.notice} role="alert"><h1>原文暂未读取完成</h1><p>{error}</p><button className={styles.primary} onClick={() => setAttempt(value => value + 1)}>重新读取</button></section>}

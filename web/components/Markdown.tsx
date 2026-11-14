@@ -1,6 +1,7 @@
 import { createElement, type ReactNode } from 'react';
 import { marked } from 'marked';
 import {sourceHref,type EvidenceLinkSource} from '../lib/source-links';
+import {SourceLink} from './SourceLink';
 
 type Token = {
   type: string; raw?: string; text?: string; tokens?: Token[]; depth?: number;
@@ -33,7 +34,7 @@ function render(tokens: Token[] = [], prefix = '',sources:EvidenceLinkSource[]=[
       case 'blockquote': return <blockquote key={key}>{content}</blockquote>;
       case 'link': {
         const href = safeLink(token.href);
-        return href ? <a key={key} href={sourceHref(href,sources,preferredRunId)} target="_blank" rel="noopener noreferrer">{content}</a> : <span key={key}>{content}</span>;
+        return href ? <SourceLink key={key} href={sourceHref(href,sources,preferredRunId)} target="_blank" rel="noopener noreferrer">{content}</SourceLink> : <span key={key}>{content}</span>;
       }
       case 'image': return <span key={key} className="image-reference">[图片：{token.text || '图表'}]</span>;
       case 'html': return <span key={key}>{token.text ?? token.raw}</span>;
